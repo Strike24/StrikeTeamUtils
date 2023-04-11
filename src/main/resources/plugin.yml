@@ -1,0 +1,7 @@
+name: StrikeTeamUtils
+version: '${version}'
+main: ml.itsstrike.striketeamutils.StrikeTeamUtils
+api-version: 1.19
+authors: [ Strike ]
+description: A Simple Plugin for Managing Minecraft Teams.
+website: https://github.com/strike24
