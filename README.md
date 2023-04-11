@@ -1,7 +1,7 @@
 # StrikeTeamUtils
 A better way to handle Minecraft Teams 🫂
 
-> **Check out the wiki for the list of command & how to use the plugin!**
+> Check out the **[Wiki](https://github.com/Strike24/StrikeTeamUtils/wiki)** for the list of command & how to use the plugin!
 
 ## Contributing
 
