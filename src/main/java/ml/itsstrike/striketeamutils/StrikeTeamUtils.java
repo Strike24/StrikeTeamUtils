@@ -21,6 +21,7 @@ public final class StrikeTeamUtils extends JavaPlugin {
                 player.playSound(player.getLocation(), "minecraft:block.note_block.pling", 1, 1);
             }
         });
+
     }
 
     private void loadCommands() {

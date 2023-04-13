@@ -19,7 +19,6 @@ import java.util.Arrays;
 @Command({"teamutils", "teamu", "tu"})
 @CommandPermission("striketeamutils.use")
 public class MainCommand {
-    private final List<Team> teamNames = new ArrayList<>();
     public MainCommand(StrikeTeamUtils plugin) {
         plugin.getHandler().getAutoCompleter().registerSuggestion("teamNames", (args, sender, command) -> {
             return Bukkit.getScoreboardManager().getMainScoreboard().getTeams().stream().map(Team::getName).toList();
@@ -70,15 +69,14 @@ public class MainCommand {
     @Subcommand("removeteam")
     @AutoComplete("@teamNames")
     public void removeTeam(Player p, String teamName) {
-        ScoreboardManager manager = Bukkit.getScoreboardManager();
-        Team team = manager.getMainScoreboard().getTeam(teamName);
-        if (team == null) {
-            p.sendMessage("§cTeam not found. Please check the name and try again.");
+        if (!TeamManager.teamExist(teamName)) {
+            p.sendMessage(Component.text("§cTeam doesn't exists. Please check the name again."));
             return;
         }
-        teamNames.remove(team);
-        p.sendMessage("§cTeam removed successfully. §8| " + team.displayName().examinableName());
-        team.unregister();}
+        TeamManager.remove(teamName);
+        p.sendMessage("§cTeam removed successfully.");
+
+    }
 
     @Subcommand("addPlayer")
     @AutoComplete("@teamNames")
