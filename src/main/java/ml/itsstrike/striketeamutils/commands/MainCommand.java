@@ -125,7 +125,7 @@ public class MainCommand {
     @AutoComplete("@teamNames")
     public void makeNotGlow(BukkitCommandActor actor, String teamName) {
         if (!TeamManager.teamExist(teamName)) {
-            actor.getSender().sendMessage("§cTeam doesn't exists. Please check the name again.");
+            actor.getSender().sendMessage("§cTeam doesn't exists. Please check the name again!");
             return;
         }
         TeamManager.getTeam(teamName).getPlayers().forEach(player -> {
