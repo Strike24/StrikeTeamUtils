@@ -135,6 +135,20 @@ public class MainCommand {
         });
         actor.getSender().sendMessage("§aTeam §f" + teamName + "§a is no longer glowing.");
     }
+    @Subcommand("tpTeam")
+    @AutoComplete("@teamNames")
+    public void tpTeam(BukkitCommandActor actor, String teamName, Player player) {
+        if (!TeamManager.teamExist(teamName)) {
+            actor.getSender().sendMessage("§cTeam doesn't exists. Please check the name again!");
+            return;
+        }
+        TeamManager.getTeam(teamName).getPlayers().forEach(playerToTp -> {
+            if (playerToTp.isOnline()) {
+                ((Player) playerToTp).teleport(player);
+            }
+        });
+        actor.getSender().sendMessage("§aTeam §f" + teamName + "§a has been teleported to §f" + player.getName() + "§a.");
+    }
 
 
 }
