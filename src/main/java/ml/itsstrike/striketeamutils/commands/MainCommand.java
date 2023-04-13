@@ -86,7 +86,7 @@ public class MainCommand {
         actor.getSender().sendMessage("§aPlayer §f" + playerToAdd.getDisplayName() + "§a added to team successfully. §8| " + team.displayName().examinableName());
     }
 
-    @Subcommand("add")
+    @Subcommand("addAll")
     @AutoComplete("@teamNames all|members|admins")
     public void addToTeams(Player p, String teamName, @Optional String type) {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
