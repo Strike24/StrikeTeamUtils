@@ -118,7 +118,7 @@ public class MainCommand {
                 ((Player) player).setGlowing(true);
             }
         });
-        actor.getSender().sendMessage("§aTeam §f" + teamName + "§a is now glowing.");
+        actor.getSender().sendMessage("§aTeam §f" + teamName + "§a is now glowing..");
     }
 
     @Subcommand("makeNotGlow")
