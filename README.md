@@ -13,4 +13,4 @@ to discuss what you would like to change.
 [MIT](https://choosealicense.com/licenses/mit/)
 
 ### Contributors
-@Strike24 , @KokoDevs
+Strike24 , KokoDevs
