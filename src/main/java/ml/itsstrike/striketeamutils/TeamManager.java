@@ -19,6 +19,11 @@ public class TeamManager {
         return manager.getMainScoreboard().getTeam(teamName);
     }
 
+    public static Team getPlayerTeam(Player player) {
+        ScoreboardManager manager = Bukkit.getScoreboardManager();
+        return manager.getMainScoreboard().getEntryTeam(player.getName());
+    }
+
     public static Team create(String teamName, ChatColor color) {
         ScoreboardManager manager = Bukkit.getScoreboardManager();
         manager.getMainScoreboard().getTeams().forEach(team -> {

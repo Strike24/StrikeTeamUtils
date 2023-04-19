@@ -2,6 +2,8 @@ package ml.itsstrike.striketeamutils;
 
 import lombok.Getter;
 import ml.itsstrike.striketeamutils.commands.MainCommand;
+import ml.itsstrike.striketeamutils.placeholders.TeamColorPlaceholder;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import revxrsal.commands.bukkit.BukkitCommandHandler;
 
@@ -22,6 +24,9 @@ public final class StrikeTeamUtils extends JavaPlugin {
             }
         });
 
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new TeamColorPlaceholder().register();
+        }
     }
 
     private void loadCommands() {
