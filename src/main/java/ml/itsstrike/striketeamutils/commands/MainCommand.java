@@ -150,5 +150,27 @@ public class MainCommand {
         actor.getSender().sendMessage("§aTeam §f" + teamName + "§a has been teleported to §f" + player.getName() + "§a.");
     }
 
+    @Subcommand("runcommand")
+    @AutoComplete("@teamNames")
+    public void runCommandAsTeam(BukkitCommandActor actor, String teamName, String command) {
+        if (command.startsWith("/")) {
+            actor.getSender().sendMessage("§cPlease don't use / in the command.\n§aExample: §fkill %player% §cinstead of §f/kill %player%");
+            return;
+        }
+        if (!TeamManager.teamExist(teamName)) {
+            actor.getSender().sendMessage("§cTeam doesn't exists. Please check the name again!\n§aTeams:");
+            TeamManager.listTeams().forEach(team -> {
+                actor.getSender().sendMessage("§8- §f" + team.getName());
+            });
+            return;
+        }
+        TeamManager.getTeam(teamName).getPlayers().forEach(player -> {
+            if (player.isOnline()) {
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", player.getName()));
+            }
+        });
+        actor.getSender().sendMessage("§aCommand §f" + command + "§a has been executed as team §f" + teamName + "§a.");
+    }
+
 
 }
