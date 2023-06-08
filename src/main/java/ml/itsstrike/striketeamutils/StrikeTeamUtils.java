@@ -1,41 +1,50 @@
 package ml.itsstrike.striketeamutils;
 
-import lombok.Getter;
 import ml.itsstrike.striketeamutils.commands.MainCommand;
 import ml.itsstrike.striketeamutils.placeholders.TeamColorPlaceholder;
-import org.bukkit.Bukkit;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.Contract;
 import revxrsal.commands.bukkit.BukkitCommandHandler;
 
 public final class StrikeTeamUtils extends JavaPlugin {
-    @Getter
-    BukkitCommandHandler handler;
+    private BukkitCommandHandler handler;
+    private TeamService teamService;
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
-        getServer().getConsoleSender().sendMessage("§aStrikeTeamUtils has been enabled successfully.");
-        loadManagers();
-        loadCommands();
+        getSLF4JLogger().info("StrikeTeamUtils has been enabled successfully.");
+
+        handler = BukkitCommandHandler.create(this);
+
+        teamService = new TeamService(getServer());
+        getServer().getServicesManager().register(TeamService.class, teamService, this, ServicePriority.Highest);
+        // Access the TeamService using getServer::getServicesManager::getRegistration();
+
+        registerCommands();
+
         getServer().getOnlinePlayers().forEach(player -> {
             if (player.hasPermission("striketeamutils.admin")) {
-                player.sendMessage("§aStrikeTeamUtils has been enabled successfully.");
+                player.sendMessage(MiniMessage.miniMessage().deserialize("<green>StrikeTeamUtils has been enabled successfully."));
                 player.playSound(player.getLocation(), "minecraft:block.note_block.pling", 1, 1);
             }
         });
 
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            new TeamColorPlaceholder().register();
-        }
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null)
+            new TeamColorPlaceholder(teamService.getTeamManager()).register();
     }
 
-    private void loadCommands() {
-        new MainCommand(this);
+    private void registerCommands() {
         handler.registerBrigadier();
+        handler.register(
+                new MainCommand(getServer(), handler.getAutoCompleter(), teamService.getTeamManager())
+        );
     }
 
-    private void loadManagers() {
-        handler = BukkitCommandHandler.create(this);
+    @Contract(pure = true)
+    public BukkitCommandHandler getHandler() {
+        return handler;
     }
 
 }
