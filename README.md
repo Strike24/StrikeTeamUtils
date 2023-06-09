@@ -16,6 +16,7 @@ This project is licensed under the [MIT](https://choosealicense.com/licenses/mit
 
 - Strike24
 - KokoDevs
+- SadGhost
 
 We extend our gratitude to the contributors for their valuable contributions to this project.
 
